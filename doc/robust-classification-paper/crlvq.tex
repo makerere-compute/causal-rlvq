@@ -98,7 +98,7 @@ To discover causes from observational data, many of the methods todate use condi
 \begin{figure}[!h]
 	\centering
 		\includegraphics[width=0.70\textwidth]{vstructure.eps}
-	\caption{Tenary conditional independence configurations}
+	\caption{Ternary conditional independence configurations}
 	\label{fig:vstructure}
 \end{figure}
 
@@ -130,7 +130,7 @@ In the literature, many modifications of Kohonen's original formulation have bee
 For RLVQ we can consider a generalized Manhattan distance of the form
 %
 \begin{equation} 
-d(x,w_j) = \sum^N_{j=1} \lambda_j |x_j - w_j| ,
+d(x,w_j) = \sum^N_{j=1} \lambda_j (x_j - w_j)^2 ,
 \end{equation}
 %
 as the dissimilarity measure where $\lambda_j$ are the adaptive relevance factors that are restricted to non-negative values and obey the normalization $sum^N_{j=1} \lambda_j = 1$. The special case $\lambda_j = 1/N$ for all $j = 1,\ldots N$ is analogous to the original LVQ1 formulation.
@@ -138,7 +138,7 @@ as the dissimilarity measure where $\lambda_j$ are the adaptive relevance factor
 In line with equation (1), for each update of the winning prototype $w_j$ its corresponding relevance factors $\lambda_j(t)$ are updated as follows;
 %
 \begin{align}
-\lambda_j(t) &= \lambda_j(t-1) - \eta_\lambda \phi |x_j - w_j| \\
+\lambda_j(t) &= \lambda_j(t-1) - \eta_\lambda \phi (x_j - w_j)^2 \\
 \lambda_j(t) &= \frac{max\left\{0,\lambda_j(t)\right\}}{\sum^N_{j=1} max\left\{0,\lambda_j(t)\right\}}
 \end{align}
 %
@@ -155,7 +155,7 @@ The difference between RLVQ and CRLVQ is akin to the difference between correlat
 
 Our assessment of causal relevance is based on identifying V-structures with respect to the target. RLVQ gives a profile that represents how strongly each single dimension of the data is predictive of the target. In CRLVQ instead of looking at a single dimension, we look for evidence that there are two dimensions $x_i$ and $x_k$ that are predictive of the target. To ascertain that $x_i$ and $x_k$ are in a V-structure with the target we also check that they are independent of each other.
 
-\begin{figure}[!h]
+\begin{figure}
 \begin{tabular}{m{.5\textwidth}cm{.4\textwidth}}
 \includegraphics[width=.5\textwidth]{causal-relevance-dimensions.eps} & &
 \includegraphics[width=.4\textwidth]{rlvq-crlvq.eps} \\
@@ -171,7 +171,7 @@ Figure 2 illustrates this salient distiction between RLVQ and CRLVQ. Panel (a) s
 Through an iterative process, $\lambda$ the relevance vector in RLVQ is updated for each introduction of an example of the data based on the evidence the new example presents in support of how relevant each dimension is  for the prediction of the target. CRLVQ has two extra criteria to evaluate when updating the relevance vector. The three criteria in total are in a sense a distance-based formulation of the V-structure condition. Each component of $\lambda$ in CRLVQ is hence updated for every dimension $x_j$ for each introduction of a data example as follows
 %
 \begin{equation} 
-\lambda_j(t) = \lambda_j(t-1) - \eta_\lambda \phi |x_j - w_j| - \alpha\left\{\min_{k \neq j}\left(\phi |x_k - w_k| - |x_j - x_k|\right)\right\} 
+\lambda_j(t) = \lambda_j(t-1) - \eta_\lambda \phi (x_j - w_j)^2 - \alpha \eta_\lambda \left( \min_{k \neq j}\left(\phi (x_k - w_k)^2 - (x_j - x_k)^2 \right) \right)
 \end{equation}
 %
 The parameter $\alpha$ is a parameter that weights the two new criteria. Standard RLVQ is hence a special case of CRLVQ when $\alpha = 0$. We evaluate the independence of the different data dimensions by looking at their absolute difference. In z-transformed data, this will give a low number in the dimensions that are positively correlated. The update hence rewards any feature $x_j$ if it has a strong correlation(small distance apart) with the target/label vector $(|x_j - w_j|)$ , and also if there is strong evidence of another feature with a strong correlation to the target as well ($|x_k - w_k|$), and if feature $x_j$ and $x_k$ are weakly correlated (large distance apart).
@@ -183,7 +183,7 @@ Note however that there might be other relationships between the dimensions that
 
 Simulated causal networks were used to validate the causal $\lambda$ update. One causal network was formulated as a 4-feature linear Gaussian network with 2 causes and 2 effects. 
 
-\begin{figure}[!h]
+\begin{figure}
 \begin{tabular}{cc}
 \includegraphics[scale=0.2]{simnetwork.eps} & 
 \includegraphics[width=.6\textwidth, height=.5\textwidth]{simlambda.eps} \\
@@ -197,7 +197,7 @@ From Figure 3, it is evident to see that with introduction of the causal update,
 
 The second network was a network simulated from a Bayes net and used for several causal competitions as a trial set for tuning causal algorithms. It is commonly called the Lucas dataset\cite{12} and tries to predict lung cancer based on different features as shown in figure 2\\
 
-\begin{figure}[!h]
+\begin{figure}
 \begin{tabular}{cc}
 \includegraphics[width=.3\textwidth]{lucasgraph.eps} & 
 \includegraphics[width=.7\textwidth, height=0.6\textwidth]{lucaslambda.eps} \\
@@ -223,7 +223,7 @@ To carry out experiments, we require a dataset with a training set from one dist
 Table \ref{tab:TestErrorResults} shows the test error scores for the three datasets REGED, CINA and MARTI for CRLVQ with varying $\alpha$ parameters. The first row with $\alpha$ = 0 represents RLVQ. Set0 represents the unmanipulated(natural) dataset while sets 1 and 2 represent manipulated/intervened upon datasets. Test results are obtained after 50 epochs through the data with a constant learning rate for the prototypes for a particular dataset.
 
 
-\begin{table}[!h]
+\begin{table}
 	\centering
 			\begin{footnotesize}
 \begin{tabular}{|c|r|r|r|r|r|r|}
