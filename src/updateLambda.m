@@ -1,4 +1,4 @@
-function lambda_update = updateLambda(x,w,eta1,alpha,psi,lambda_old)
+function lambda_update = updateLambda(x,w,eta1,alpha,psi)
 % Function to update lambda
 % input : 
 %   x - example
@@ -15,7 +15,7 @@ function lambda_update = updateLambda(x,w,eta1,alpha,psi,lambda_old)
 N = size(x,2);
 
 lambda_update = zeros(1,N);
-AC = abs(x - w);
+
 
 for j = 1:N
     lambda_update(j) = -eta1*psi*(x(j)-w(j))^2;

@@ -92,7 +92,7 @@ for epoch = param.StartEpoch:param.nEpochs
         time(m) = epoch; 
         train_error(m) = et;
         test_error(m) =  eg;
-        display(['epochs = ' num2str(epoch) ', test_error = ' num2str(eg) ', train_error = ' num2str(et)]);
+        %display(['epochs = ' num2str(epoch) ', test_error = ' num2str(eg) ', train_error = ' num2str(et)]);
         m=m+1;
     end
     

@@ -29,11 +29,8 @@ for mu = 1:P
     delta = ones(proto,1)*xi(mu,:) - w;
     delta(isnan(delta))=0 ;
     dist = delta.^2 * lambda';
-    %---appended---
+
     x = xi(mu,:);
-%     yBC = corrBC(x,w);
-%     yAB = corrAB(x);
-%     %--------------
 
     % finding nearest prototype
     [dJ J] = min(dist);
@@ -45,7 +42,7 @@ for mu = 1:P
     %update relevances
     if eta1>0
 
-        lambda_update = updateLambda(x, w(J,:), eta1, alpha, psi,lambda);
+        lambda_update = updateLambda(x, w(J,:), eta1, alpha, psi);
         lambda = lambda + lambda_update;
 
         if isnan(lambda)

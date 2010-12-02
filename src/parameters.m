@@ -23,12 +23,12 @@ param =  struct( ...
              'algo',    'rlvq'    ,...      
       'nProtoClass',    1         ,...     % # prototypes per class
        'StartEpoch',    1         ,...     % begin learning
-          'nEpochs',    15       ,...     % # epochs (sweeps through entire data)
+          'nEpochs',    50       ,...     % # epochs (sweeps through entire data)
               'eta',    1e-2      ,...     % learning rate
-             'eta1',    1e-5      ,...     % learning rate of relevances
+             'eta1',    1e-6      ,...     % learning rate of relevances
              'alpha',   0      ,...   % causal relevance learning factor: 0=RLVQ, 1=maximum bias to causes
-   'StartRelevance',    5       ,...      % time to start relevance learning
-   'StartCausalRelevance', 5   ,...      % time to start causal relevance learning
+   'StartRelevance',    20       ,...      % time to start relevance learning
+'StartCausalRelevance', 20       ,...      % time to start causal relevance learning
        'show_plots',    1         ,...     % plots on/off
         'interval1',    5         ,...     % intervals between error calculations
         'interval2',    1        ,...     % intervals between plots
@@ -63,6 +63,6 @@ while i <= nargin
       error('MATLAB:odeset:InvalidFieldName',...
           'Unrecognized struct field name ''%s''.', arg);
   end
-  param = setfield(param,arg,varargin{i+1})
+  param = setfield(param,arg,varargin{i+1});
   i = i+2;
 end
