@@ -1,0 +1,59 @@
+\begin{thebibliography}{10}
+
+\bibitem{08}
+T.~Bojer, B.~Hammer, D.~Schunk, and Tluk von Toschanowitz~K.
+\newblock Relevance determination in learning vector quantization.
+\newblock In {\em 9th European Symposium on Artificial Neural Networks.
+  ESANN'2001. Proceedings. D-Facto, Evere, Belgium}, pages 271--276, 2001.
+
+\bibitem{06}
+Judea Pearl.
+\newblock {\em Causality : Models, Reasoning and Inference}.
+\newblock Cambridge University Press, Cambridge, 2000.
+
+\bibitem{15}
+Patrik Hoyer, Shohei Shimizu, Aapo Hyvärinen, Yutaka Kano, and Antti Kerminen.
+\newblock New permutation algorithms for causal discovery using ica.
+\newblock In Justinian Rosca, Deniz Erdogmus, José Príncipe, and Simon Haykin,
+  editors, {\em Independent Component Analysis and Blind Signal Separation},
+  volume 3889 of {\em Lecture Notes in Computer Science}, pages 115--122.
+  Springer Berlin / Heidelberg, 2006.
+
+\bibitem{14}
+Alexander Medvedovsky, Vineet Bafna, Uri Zwick, and Roded Sharan.
+\newblock An algorithm for orienting graphs based on cause-effect pairs and its
+  applications to orienting protein networks.
+\newblock In Keith Crandall and Jens Lagergren, editors, {\em Algorithms in
+  Bioinformatics}, volume 5251 of {\em Lecture Notes in Computer Science},
+  pages 222--232. Springer Berlin / Heidelberg, 2008.
+
+\bibitem{02}
+T.~Kohonen.
+\newblock {\em {Self Organizing Maps}}, volume 2nd Edition.
+\newblock Springer, Berlin, 1997.
+
+\bibitem{09}
+P.~Schneider., M.~Biehl., and B.~Hammer.
+\newblock Adaptive revelance matrices in learning vector quantization.
+\newblock {\em Neural Computing}, 21:3535--3561, 2009.
+
+\bibitem{10}
+B.~Hammer and T.~Villmann.
+\newblock {Generalized relevance learning vector quantization}.
+\newblock {\em Neural Networks}, 15:1059--1068, 2002.
+
+\bibitem{11}
+B.~Hammer, F.M. Schleif, and T.~Villmann.
+\newblock On the generalization ability of prototype based classifiers with
+  local relevance determination.
+\newblock Technical Report Ifi-05-14, Clausthal University of Technology, 2005.
+
+\bibitem{12}
+Isabelle Guyon.
+\newblock Lung cancer simple model, 10 2009.
+
+\bibitem{13}
+Causality Workbench.
+\newblock Causality workbench data repository, November 2010.
+
+\end{thebibliography}

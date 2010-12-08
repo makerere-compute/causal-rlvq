@@ -49,10 +49,10 @@
 %***********************************************************************
 % AUTHORS INFORMATION AREA
 %***********************************************************************
-\author{Ernest Mwebaze$^{1,2}$ and John A. Quinn$^1$ and Michael Biehl$^2$
+\author{Ernest Mwebaze$^{1,2}$ and Michael Biehl$^2$ and John A. Quinn$^1$ 
 %
 % Optional short acknowledgment: remove next line if non-needed
-\thanks{We would like to acknowledge funding from NUFFIC NPT Project and Google Research Awards for this work.}
+%\thanks{We would like to acknowledge funding from NUFFIC NPT Project and Google Research Awards for this work.}
 %
 % DO NOT MODIFY THE FOLLOWING '\vspace' ARGUMENT
 \vspace{.3cm}\\
@@ -72,7 +72,7 @@ Univ. of Groningen P.O. Box 407, 9700AK Groningen, The Netherlands\\
 \maketitle
 
 \begin{abstract}
-In some classification problems the distribution of the test data is different from that of the training data because of external manipulations to the variables we observe. We propose a classification scheme which is robust to outside interventions by identifying causes in the training data, given that causes of a target variable remain predictive even when the data is manipulated. We do this be extending Relevance Learning Vector Quantization (RLVQ), a classification scheme that learns a relevance profile for the classification task presented. Our proposed algorithm, Causal-RLVQ, learns a relevance profile that weights causally relevant features more strongly. The algorithm can determines a tradeoff between robustness to intervention and accuracy on non-manipulated data, yielding RLVQ as a special case.
+In some classification problems the distribution of the test data is different from that of the training data because of external manipulations to the variables we observe. We propose a classification scheme which is robust to outside interventions by identifying causes in the training data, given that causes of a target variable remain predictive even when the data is manipulated. We do this by extending Relevance Learning Vector Quantization (RLVQ), a classification scheme that learns a relevance profile for the classification task presented. Our proposed algorithm, Causal-RLVQ, learns a relevance profile that weights causally relevant features more strongly. The algorithm can determine a tradeoff between robustness to intervention and accuracy on non-manipulated data, yielding RLVQ as a special case.
 \end{abstract}
 
 \section{Introduction}
@@ -102,34 +102,34 @@ To discover causes from observational data, many of the methods todate use condi
 
 Figure \ref{fig:vstructure} shows the several conditional independence configurations of three variables $X,Y$ and $Z$ commonly identified as; (a) Collider: $X \ci Z$ but $X \dep Z | Y$, (b) Chain : $X \ci Z | Y$, (c) Fork : $X \ci Z | Y$, and (d) the fully connected configuration with indistinguishable conditional independence properties. Of these, the collider that provides the so-called 'V-structure' is of most critical importance in causal discovery because it is the only configuration that provides unique causal characteristics of the three. 
 
-It suffices to note that most algorithms in causal discovery aim at discovering V-structures in the data as a way of determining causal relationships in the data. Causal discovery methods have also been extended in several ways including; using bayesian networks to model causal relationships using conditional independencies, search-and-score methods of causal discovery, causal discovery in multivariate relatinoships between continous variables using Structural Equation Models (SEMs), causal discovery using Independent Componenet Analysis and more recently progress has also been in discovering causality from cause-effect pairs \cite{15,14}.
+It suffices to note that most algorithms in causal discovery aim at discovering V-structures in the data as a way of determining causal relationships in the data. Causal discovery methods have also been extended in several ways including; using bayesian networks to model causal relationships using conditional independencies, search-and-score methods of causal discovery, causal discovery in multivariate relatinoships between continous variables using Structural Equation Models (SEMs), causal discovery using Independent Component Analysis and more recently progress has also been in discovering causality from cause-effect pairs \cite{15,14}.
 
 \section{RLVQ}
 \label{sec:RLVQ}
 
-The basic LVQ scheme is set up as follows; Given a dataset $D = \left\{x^\mu, y^\mu\right\}^P_{\mu = 1}$ where $x^\mu \in R^N$ and the labels $y^\mu \in {1,2,\ldots C}$ correspond to one of the classes, the LVQ scheme is parameterized by a set of prototype vectors $W = \left\{w_j, c(w_j)\right\}^M_{j=1}$ with the prototype vectors $w_j$ having labels $c(w_j) \in {1,2,\dots C}$.
+The basic LVQ scheme is set up as follows; Given a dataset $D = \left\{\textbf{x}^\mu, y^\mu\right\}^P_{\mu = 1}$ where $\textbf{x}^\mu \in \textbf{R}^N$ and the labels $y^\mu \in {1,2,\ldots C}$ correspond to one of the classes, the LVQ scheme is parameterized by a set of prototype vectors $\textbf{w} = \left\{\textbf{w}^j, c(\textbf{w}^j)\right\}^M_{j=1}$ with the prototype vectors $\textbf{w}^j$ having labels $c(\textbf{w}^j) \in {1,2,\dots C}$.
 
-For a particular dissimilarity/distance measure $d(x,w)$, the LVQ classifier employs a Winner-Takes-All scheme where an arbitrary input is assigned to the class $c(W_L)$ of the closest prototype with $d(x,W_L) \leq d(x,w_j)$ \textsl{for all} $j$.
+For a particular dissimilarity/distance measure $d(\textbf{x,w})$, the LVQ classifier employs a Winner-Takes-All scheme where an arbitrary input is assigned to the class $c(\textbf{w}^L)$ of the closest prototype with $d(\textbf{x},\textbf{w}^L) \leq d(\textbf{x},\textbf{w}^j)$ \textsl{for all} $j$.
 
-In the literature, many modifications of Kohonen's original formulation\cite{02} have been suggested with the aim of achieving better convergence and generalization behavior. A specific set of modifications have been towards accounting for heterogeneous datasets where features can have different meanings and magnitudes. These are the class of relevance learning schemes which employ adaptive scaling factors for each dimension in the feature space. A good background to these modifications is given elsewhere in the literature\cite{09,10,11}. For our purposes it will suffice to give the general formulation of RLVQ.
+In the literature, many modifications of Kohonen's original formulation\cite{02} have been suggested with the aim of achieving better convergence and generalization behavior. A specific set of modifications have been towards accounting for heterogeneous datasets where features can have different meanings and magnitudes. These are the class of relevance learning schemes which employ adaptive scaling factors for each dimension in the feature space. A good background to these modifications is given in the literature\cite{09,10,11}. For our purposes it will suffice to give the general formulation of RLVQ.
 
 For RLVQ we can consider a generalized Euclidean distance of the form
 %
 \begin{equation} 
-d(x,w_j) = \sum^N_{j=1} \lambda_j (x_j - w_j)^2 ,
+d(\textbf{x},\textbf{w}^J) = \sum^N_{j=1} \lambda_j (x_j - w^J_j)^2 ,
 \end{equation}
 %
 \noindent
 as the dissimilarity measure where $\lambda_j$ are the adaptive relevance factors. The special case $\lambda_j = 1/N$ for all $j = 1,\ldots N$ is analogous to the original LVQ1 formulation. Each update of the winning prototype $w_j$ is accompanied by a corresponding update in the relevance factor $\lambda_j(t)$ as follows;
 %
 \begin{equation}
-\lambda_j(t) = \lambda_j(t-1) - \eta_\lambda \phi (x_j - w_j)^2 
+\lambda_j(t) = \lambda_j(t-1) - \eta_\lambda \cdot \phi \cdot (x_j - w^J_j)^2 
 \end{equation}
 %
 \noindent
 where $\lambda_j(t)$ is restricted to non-negative values and obeys the normalization $\sum^N_{j=1} \lambda_j = 1$.
 
-The $\lambda$ update hence decreases the relevance factor $\lambda_j$ if the winning prototype $w_j$ does represent the correct class but the contribution $(x_j - w_j)^2$ to $d(x,w_j)$ is relatively large. Conversely the weight of a feature with relatively small $(x_j - w_j)^2$ is increased in such a case. The learning rates $\eta_w$ and $\eta_\lambda$ control the magnitude of the prototype and relevance factor updates at each step.
+The $\lambda$ update hence decreases the relevance factor $\lambda_j$ if the winning prototype $\textbf{w}^J$ does represent the correct class but the contribution $(\textbf{x}_j - \textbf{w}^J_j)^2$ to $d(\textbf{x},\textbf{w}^J)$ is relatively large. Conversely the weight of a feature with relatively small $(\textbf{x}_j - \textbf{w}^J_j)^2$ is increased in such a case. The learning rates $\eta_w$ and $\eta_\lambda$ control the magnitude of the prototype and relevance factor updates at each step.
 
 \section{CRLVQ}
 \label{sec:CRLVQ}
@@ -152,10 +152,10 @@ Figure 2 illustrates this salient distiction between RLVQ and CRLVQ. Panel (a) s
 CRLVQ extends the RLVQ update by adding two extra evaluation criteria to equation 2. The three criteria in total are in a sense a distance-based formulation of the V-structure condition. For every example presented to the CRLVQ classification scheme, each component of $\lambda$ in CRLVQ is hence updated for every dimension $x_j$ for each introduction of a data example as follows
 %
 \begin{equation} 
-\lambda_j(t) = \lambda_j(t-1) - \eta_\lambda \phi (x_j - w_j)^2 - \alpha \eta_\lambda \left( \min_{k \neq j}\left(\phi (x_k - w_k)^2 - (x_j - x_k)^2 \right) \right)
+\lambda_j(t) = \lambda_j(t-1) - \eta_\lambda \cdot \phi \cdot (x_j - w_j^J)^2 - \alpha \cdot \eta_\lambda \cdot \left( \min_{k \neq j}\left(\phi \cdot (x_k - w_k^J)^2 - (x_j - x_k)^2 \right) \right)
 \end{equation}
 %
-The parameter $\alpha$ is a parameter that weights the two new criteria. Standard RLVQ is hence a special case of CRLVQ when $\alpha = 0$. We evaluate the independence of the different data dimensions by looking at their absolute difference. In z-transformed data, this will give a low number in the dimensions that are positively correlated. The update hence rewards any feature $x_j$ if it has a strong correlation(small difference) with the target/label vector $(x_j - w_j)^2$ , and also if there is strong evidence of another feature with a strong correlation to the target as well $(x_k - w_k)^2$, and if feature $x_j$ and $x_k$ are weakly correlated (large difference apart).
+The parameter $\alpha$ is a parameter that weights the two new criteria. Standard RLVQ is hence a special case of CRLVQ when $\alpha = 0$. We evaluate the independence of the different data dimensions by looking at their absolute difference. In z-score transformed data, this will give a low number in the dimensions that are positively correlated. The update hence rewards any feature $x_j$ if it has a strong correlation(small difference) with the target/label vector as represented by a correct prototype $(x_j - w_j^J)^2$ , and also if there is strong evidence of another feature with a strong correlation to the target as well $(x_k - w_k^J)^2$, and if feature $x_j$ and $x_k$ are weakly correlated (large difference apart).
 
 Note however that there might be other relationships between the dimensions that make them dependent on each other, but that this update would not capture for example negative correlation. 
 
@@ -167,7 +167,8 @@ Simulated causal networks were used to validate the causal $\lambda$ update. One
 \begin{figure}[!h]
 \begin{tabular}{cc}
 \includegraphics[scale=0.2]{simnetwork.eps} & 
-\includegraphics[width=.6\textwidth, height=.5\textwidth]{simlambda.eps} \\
+\includegraphics[width=.7\textwidth, height=.4\textwidth]{simlambda.eps} \\
+%\includegraphics[scale=0.3]{simlambda.eps} \\
 (a) &  (b)  
 \end{tabular}
 \label{fig:simnetwork}
@@ -190,11 +191,12 @@ Figure \ref{fig:lucasgraph} illustrates the three networks from which the datase
 \section{Results}
 \label{sec:Results}
 
-Table \ref{tab:TestErrorResults} shows the test error scores for the three datasets Lucas0, Lucas1 and Lucas2 for CRLVQ with varying $\alpha$ parameters. The first row with $\alpha$ = 0 represents RLVQ. Lucas0 represents the unmanipulated(natural) dataset while Lucas1 and Lucas2 represent manipulated/intervened upon datasets. Test results are obtained after 50 epochs through the data with $\eta_\lambda = 1e-6$.
-
-
-\begin{table}
+Table \ref{tab:TestErrorResults} shows the test error scores for the three datasets Lucas0, Lucas1 and Lucas2 for CRLVQ with varying $\alpha$ parameters. The first row with $\alpha$ = 0 represents RLVQ. Lucas0 represents the unmanipulated(natural) dataset while Lucas1 and Lucas2 represent manipulated/intervened upon datasets. Test results are obtained after 50 epochs through the data with $\eta_\lambda = 10^{-6}$.
+\begin{table}[!ht]
 	\centering
+	\subfloat[Results][Results]{
+%\begin{table}
+ %\centering
 			%\begin{footnotesize}
 \begin{tabular}{|c|c|c|c|}
 \hline
@@ -212,11 +214,12 @@ $\alpha$ &  Lucas0 &     Lucas1 &     Lucas2  \\
 \hline
   1.3 &     0.1850 &     0.1660 &     0.1740   \\
 \hline
-\end{tabular}   
+\end{tabular} }
+\subfloat[lucaslambda][RLVQ as $\lambda$ changes]{\includegraphics[width=0.6\textwidth, height=0.4\textwidth]{lucaslambda.eps}}  
 			%\end{footnotesize}
 	\caption{Test Error results for RLVQ and CRLVQ for the different datasets Lucas0, Lucas1 and Lucas2.}
 	\label{tab:TestErrorResults}
-\end{table}
+\end{table} 
 
 For Lucas0, the unmanipulated dataset we notice a better test error for RLVQ ($\alpha = 0$) than for any other value of $\alpha$ (CRLVQ). This is plausible because for good classification performance effects (and possibly other features) are just as relevant as causes, so as we increase $\alpha$ we seive out most of the other features and keep the causally relevant features which may generally lead to poorer performance as is evidenced in the table.
 
@@ -227,8 +230,9 @@ For the manipulated datasets, Lucas1 and Lucas2 we notice the opposite effect. T
 
 This paper attempts to leverage techniques in causal learning and discovery and apply them to relevance learning for prototype-based classification. The goal is to assure robust classification when it is not certain that the test set has the same distribution as the training set, which is a common scenario in real applications. While our scheme is theoretically plausible, its actual formulation is still not very specific. This paper attempts a possible proof of concept and as such has several limitations in its present formulation; for example the scheme will only work if there are more than one cause and the causes are not related to each other. Also if causative cycles are present in the data, unreliable performance will result. 
 
-The introduction of $\alpha$ is interesting because it can be tuned across a scale of RLVQ to CRLVQ and in a sense can depict the degree of certainty of manipulation of the test set. Presently this parameter is set arbitrarily, future work will look into how to learn this parameter as well. We also used a basic derivative of LVQ which has inherent problems in convergence and generalization of the classifier, however since CRLVQ mainly concerns how to update the relevance vector, we believe it can be easily extended to the different derivatives of LVQ including GRLVQ, GMLVQ and others. In future we will attempt to extend the update to these different schemes as well. Our formulation of the V-structures is not very specific and we have tried to highlight the short comings in different sections of this paper, in future providing a proper formulation will be one of our key concerns.
+The introduction of $\alpha$ is interesting because it can be tuned across a scale of RLVQ to CRLVQ and in a sense can depict the degree of certainty of manipulation of the test set. Presently this parameter is set arbitrarily, future work will look into how to learn this parameter as well. We also used a basic derivative of LVQ which has inherent problems in convergence and generalization of the classifier, however since CRLVQ mainly concerns how to update the relevance vector, we believe it can be easily extended to the different derivatives of LVQ including GRLVQ\cite{10}, GMLVQ\cite{09} and others. In future we will attempt to extend the update to these different schemes as well. Our formulation of the V-structures is not very specific and we have tried to highlight the short comings in different sections of this paper, in future providing a proper formulation will be one of our key concerns.
 
+\textbf{Acknowledgement:} We would like to acknowledge funding from NUFFIC Project NPT-UGA-238: Strengthening ICT Training and Research Capacity in Uganda and Google Research Awards for this work.
 % ****************************************************************************
 % BIBLIOGRAPHY AREA
 % ****************************************************************************
