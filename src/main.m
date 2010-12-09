@@ -28,10 +28,10 @@ for ds = 1:length(datasets)
     %% RLVQ
 
     % Initialize parameters
-    eta1 = 1e-6;
+    eta1 = 1e-5;
 
 
-    for alpha = [0, 0.3, 0.7, 1, 1.3]
+    for alpha = [0, 0.5, 1, 1.5, 2]
 
         display(['alpha = ' num2str(alpha)]);
         param = parameters('eta1', eta1, 'alpha', alpha);

@@ -82,7 +82,7 @@ The task of performing classification on data for which some of the variables ha
 
 Finding the causes of a target variable is primarily useful in order to predict the effects of interventions on that variable, and in the last decade a number of methods have been developed to do this on purely observational data \cite{06}. It therefore makes sense for prediction and causal discovery to be tightly coupled, and the algorithm we describe in this work carries out both tasks simultaneously in a prototype-based learning scheme.
 
-In this paper we introduce a scheme that extends relevance learning vector quantization (RLVQ) \cite{08}. RLVQ generalises the distance measure of input data such the features relevant to the target variable are weighted more heavily. Our extension, Causal RLVQ, introduces a new parameter $\alpha$ which determines how far to bias the relevance weights towards causative features. When $\alpha>0$, causative features are favoured, giving us robust classification at test time under such cases where the new data is suspected to have been intervened upon. We do this by trying to identify so called ``$V$-structures'' (section \ref{sec:IdentifyingCausesInObservationalData}) in the data.
+In this paper we introduce a scheme that extends relevance learning vector quantization (RLVQ) \cite{08}. RLVQ generalises the distance measure of input data such that the features relevant to the target variable are weighted more heavily. Our extension, Causal RLVQ, introduces a new parameter $\alpha$ which determines how far to bias the relevance weights towards causative features. When $\alpha>0$, causative features are favoured, giving us robust classification at test time under such cases where the new data is suspected to have been intervened upon. We do this by trying to identify so called ``$V$-structures'' (section \ref{sec:IdentifyingCausesInObservationalData}) in the data.
 
 
 %The structure of the remainder of the paper is as follows; initially we explain the problem of identifying causes from observational data, then give a small background on the basic RLVQ scheme that we extend in the following section. We then follow on with a description of how the causal relevance scheme works and we conclude with some experiments on different datasets.
@@ -180,7 +180,7 @@ For experiments on manipulated test sets we used a network simulated from a Baye
 \begin{figure}[t]
 	\centering
 		\includegraphics[width=0.8\textwidth]{lucasgraph.eps}
-	\caption{\footnotesize{Lucas graphs showing the network structures for the unmanipulated set, Lucas0 and the manipulated sets, Lucas1 and Lucas2. The different features in the graphs are labelled as follows; 0 - Lungcancer, 1 - Smoking, 2 - Yellow Fingers, 3 - Anxiety, 4 - Peer Pressure, 5 - Genetics, 6 - Attention Disorder, 7 - Born an Even Day, 8 - Car Accident, 9 - Fatigue, 10 - Allergy, 11 - Coughing.}}
+	\caption{\footnotesize{Lucas graphs showing the network structures for the unmanipulated set, Lucas0 and the manipulated sets, Lucas1 and Lucas2. The different features in the graphs are labelled as follows; 0 - Lungcancer, 1 - Smoking, 2 - Genetics, 3 - Allergy, 4 - Anxiety, 5 - Peer Pressure, 6 - Yellow Fingers, 7 - Born an Even Day, 8 - Attention Disorder, 9 - Car Accident, 10 - Coughing, 11 - Fatigue.}}
 	\label{fig:lucasgraph}
 \end{figure}
 
