@@ -143,7 +143,7 @@ CRLVQ is our extention of the RLVQ scheme where updates favor features that are 
 \caption{RLVQ and CRLVQ formulations. Panel (a) is an illustration of placement of variables across the predictive-causal space. Panel (b) shows how RLVQ is extended to CRLVQ}
 \end{figure}
 
-Figure \ref{fig:causes}(a) illustrates this salient distiction between RLVQ and CRLVQ. We conceive of features $(x_1, \ldots, x_P)$ as being characterisable along two dimensions: their predictiveness of the target variable, and their causal effect on the target variable. Standard relevance learning aims to give higher weight to a set of variables (1) which are highly predictive; causal structure learning aims to find causes (2) or effects of a target; our work here identifies variables which are predictive causes (3). Figure \ref{fig:causes}(b) shows the difference in which RLVQ considers each feature separately; CRLVQ takes features pairwise in order to identify V-structures with the target.
+Figure 2(a) illustrates this salient distiction between RLVQ and CRLVQ. We conceive of features $(x_1, \ldots, x_P)$ as being characterisable along two dimensions: their predictiveness of the target variable, and their causal effect on the target variable. Standard relevance learning aims to give higher weight to a set of variables (1) which are highly predictive; causal structure learning aims to find causes (2) or effects of a target; our work here identifies variables which are predictive causes (3). Figure 2(b) shows the difference in which RLVQ considers each feature separately; CRLVQ takes features pairwise in order to identify V-structures with the target.
  
 CRLVQ extends the RLVQ update by adding two extra evaluation criteria to equation 2. The three criteria in total are in a sense a distance-based formulation of the V-structure condition. For every example presented to the CRLVQ classification scheme, each component of $\lambda$ in CRLVQ is hence updated for every dimension $x_j$ for each introduction of a data example as follows
 %
@@ -158,7 +158,7 @@ Note however that there might be other relationships between the dimensions that
 \section{Experiments}
 \label{sec:Experiments}
 
-Simulated causal networks were used to demonstrate the effect of the causal $\lambda$ update. One causal network was formulated as a 5-feature linear Gaussian network with 2 causes, 2 effects and 1 irrelevant feature, shown in Figure \ref{fig:simnetwork}(a). In Figure \ref{fig:simnetwork}(b) we can see that as $\alpha$ is increased, the relevance weights increase for the features that are causally relevant. 
+Simulated causal networks were used to demonstrate the effect of the causal $\lambda$ update. One causal network was formulated as a 5-feature linear Gaussian network with 2 causes, 2 effects and 1 irrelevant feature, shown in Figure 3(a). In Figure 3(b) we can see that as $\alpha$ is increased, the relevance weights increase for the features that are causally relevant. 
 
 \begin{figure}
 \begin{tabular}{cc}
@@ -184,7 +184,7 @@ For experiments on manipulated test sets we used a network simulated from a Baye
 	\label{fig:lucasgraph}
 \end{figure}
 
-Figure \ref{tab:TestErrorResults} shows the test error scores for the three datasets Lucas0, Lucas1 and Lucas2 for CRLVQ with varying $\alpha$ parameters. The first row with $\alpha$ = 0 represents RLVQ. Lucas0 represents the unmanipulated(natural) dataset while Lucas1 and Lucas2 represent manipulated/intervened upon datasets. Test results are obtained after 50 epochs through the data with $\eta_\lambda = 10^{-6}$.
+Figure \ref{tab:TestErrorResults} shows the test error scores for the three datasets Lucas0, Lucas1 and Lucas2 for CRLVQ with varying $\alpha$ parameters. The first row with $\alpha$ = 0 represents RLVQ. Lucas0 represents the unmanipulated(natural) dataset while Lucas1 and Lucas2 represent manipulated/intervened upon datasets. Test results are obtained after 50 epochs through the data with $\eta_\lambda = 10^{-5}$.
 
 \begin{figure}[t]
 	\centering
@@ -200,15 +200,11 @@ Figure \ref{tab:TestErrorResults} shows the test error scores for the three data
 \hline
 $\alpha$ &  Lucas0 &     Lucas1 &     Lucas2  \\
 \hline
-  0    &    0.1820 &     0.1700 &     0.1800  \\
+  0    &    0.1970 &     0.2370 &     0.2620  \\
 \hline
-  0.3 &     0.1860 &     0.1680 &     0.1780  \\
+  1.0 &     0.2040 &     0.2040 &     0.2030  \\
 \hline
-  0.7 &     0.1860 &     0.1690 &     0.1780   \\
-\hline
-  1.0 &     0.1840 &     0.1680 &     0.1740   \\
-\hline
-  1.3 &     0.1850 &     0.1660 &     0.1740   \\
+  2.0 &     0.2040 &     0.2040 &     0.2030   \\
 \hline
 \end{tabular}
 \vspace{0cm}
@@ -219,7 +215,7 @@ $\alpha$ &  Lucas0 &     Lucas1 &     Lucas2  \\
 	\label{tab:TestErrorResults}
 \end{figure} 
 
-%For Lucas0, the unmanipulated dataset we notice a better test error for RLVQ ($\alpha = 0$) than for any other value of $\alpha$ (CRLVQ). This is plausible because for good classification performance effects (and possibly other features) are just as relevant as causes, so as we increase $\alpha$ we seive out most of the other features and keep the causally relevant features which may generally lead to poorer performance as is evidenced in the table.
+For Lucas0, the unmanipulated dataset we notice a better test error for RLVQ ($\alpha = 0$) than for any other value of $\alpha$ (CRLVQ). This is plausible because for good classification performance effects (and possibly other features) are just as relevant as causes. For the manipulated datasets, we notice that test error increases for RLVQ as expected because there are fewer relevant features. We however notice an increase in performance as we tune up $\alpha$ because then only possible causes are identified which remain relevant even under manipulations. Figure 5 (b) illustrates the relevance profile for the different values of $\alpha$.
 
 %For the manipulated datasets, Lucas1 and Lucas2 we notice the opposite effect. There is better accuracy as $\alpha$ is increased as expected because the causes remain predictive after the data is manipulated. A higher $\alpha$ biases the relevance profile towards causally relevant features hence the increase in performance. While generally this is true, the performance tends to be sensitive to the values of $\alpha$ and the RLVQ learning rate $\eta_\alpha$.
 
