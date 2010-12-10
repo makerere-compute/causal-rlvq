@@ -175,8 +175,7 @@ Simulated causal networks were used to demonstrate the effect of the causal $\la
 \end{figure}
 
 
-For experiments on manipulated test sets we used a network simulated from a Bayes net and used for several causal competitions as a trial set for tuning causal algorithms. It is commonly called the Lucas dataset\cite{12,13} and tries to predict lung cancer based on different features. Three versions of the dataset were used: Lucas0 - the natural network (unmanipulated) from which the training set was obtained, and manipulated datasets Lucas1 and Lucas2 (manipulated variables shown in Figure \ref{fig:lucasgraph}).
-
+For experiments on manipulated test sets we used a network simulated from a Bayes net and used for several causal competitions as a trial set for tuning causal algorithms. It is commonly called the Lucas dataset\cite{12,13} and tries to predict lung cancer based on different features. Three versions of the dataset were used: Lucas0, the natural network (unmanipulated) from which the training set was obtained, and manipulated datasets Lucas1 and Lucas2 (manipulated variables shown in Figure \ref{fig:lucasgraph}). All training was carried out on unmanipulated data. 
 \begin{figure}[t]
 	\centering
 		\includegraphics[width=0.8\textwidth]{lucasgraph.eps}
@@ -193,7 +192,7 @@ Figure \ref{tab:TestErrorResults} shows the test error scores for the three data
  %\centering
 			%\begin{footnotesize}
 \begin{tabular}{c}
-\vspace{-4cm} \\ 
+\vspace{-3.2cm} \\ 
 \begin{tabular}{|c|c|c|c|}
 \hline
       &         \multicolumn{ 3}{|c|}{Lucas Dataset}   \\
@@ -215,7 +214,7 @@ $\alpha$ &  Lucas0 &     Lucas1 &     Lucas2  \\
 	\label{tab:TestErrorResults}
 \end{figure} 
 
-For Lucas0, the unmanipulated dataset we notice a better test error for RLVQ ($\alpha = 0$) than for any other value of $\alpha$ (CRLVQ). This is plausible because for good classification performance effects (and possibly other features) are just as relevant as causes. For the manipulated datasets, we notice that test error increases for RLVQ as expected because there are fewer relevant features. We however notice an increase in performance as we tune up $\alpha$ because then only possible causes are identified which remain relevant even under manipulations. Figure 5 (b) illustrates the relevance profile for the different values of $\alpha$.
+The unmanipulated dataset is best predicted by RLVQ ($\alpha = 0$). For the manipulated datasets, we notice that test error increases for RLVQ as expected because there are fewer relevant features. We also see an increase in performance on these datasets as $\alpha$ is increased, as causal dimensions in the data dominate the distance measure. Figure 5 (b) illustrates the relevance profile for the different values of $\alpha$; we can see that as $\alpha$ increases, the relevance weight of variable 1 (a cause) is increased at the expense of variables 10 and 11 (effects).
 
 %For the manipulated datasets, Lucas1 and Lucas2 we notice the opposite effect. There is better accuracy as $\alpha$ is increased as expected because the causes remain predictive after the data is manipulated. A higher $\alpha$ biases the relevance profile towards causally relevant features hence the increase in performance. While generally this is true, the performance tends to be sensitive to the values of $\alpha$ and the RLVQ learning rate $\eta_\alpha$.
 
