@@ -4,6 +4,7 @@
 \usepackage{amssymb,amsmath,array}
 \usepackage{float}
 \usepackage{subfig}
+\usepackage{url}
 
 \newcommand\independent{\protect\mathpalette{\protect\independenT}{\perp}}
 \def\independenT#1#2{\mathrel{\rlap{$#1#2$}\mkern2mu{#1#2}}}
@@ -73,6 +74,7 @@ Univ. of Groningen P.O. Box 407, 9700AK Groningen, The Netherlands\\
 
 \begin{abstract}
 In some classification problems the distribution of the test data is different from that of the training data because of external manipulations to the variables we observe. We propose a classification scheme which is robust to outside interventions by identifying causes in the training data, given that causes of a target variable remain predictive even when the data is manipulated. We do this by extending Relevance Learning Vector Quantization (RLVQ), a classification scheme that learns a relevance profile for the classification task presented. Our proposed algorithm, Causal-RLVQ, learns a relevance profile that weights causally relevant features more strongly. The algorithm can determine a tradeoff between robustness to intervention and accuracy on non-manipulated data, yielding RLVQ as a special case.
+
 \end{abstract}
 
 \section{Introduction}
@@ -82,8 +84,7 @@ The task of performing classification on data for which some of the variables ha
 
 Finding the causes of a target variable is primarily useful in order to predict the effects of interventions on that variable, and in the last decade a number of methods have been developed to do this on purely observational data \cite{06}. It therefore makes sense for prediction and causal discovery to be tightly coupled, and the algorithm we describe in this work carries out both tasks simultaneously in a prototype-based learning scheme.
 
-In this paper we introduce a scheme that extends relevance learning vector quantization (RLVQ) \cite{08}. RLVQ generalises the distance measure of input data such that the features relevant to the target variable are weighted more heavily. Our extension, Causal RLVQ, introduces a new parameter $\alpha$ which determines how far to bias the relevance weights towards causative features. When $\alpha>0$, causative features are favoured, giving us robust classification at test time under such cases where the new data is suspected to have been intervened upon. We do this by trying to identify so called ``$V$-structures'' (section \ref{sec:IdentifyingCausesInObservationalData}) in the data.
-
+In this paper we introduce a scheme that extends relevance learning vector quantization (RLVQ) \cite{08}. RLVQ generalises the distance measure of input data such that the features relevant to the target variable are weighted more heavily. Our extension, Causal RLVQ, introduces a new parameter $\alpha$ which determines how far to bias the relevance weights towards causative features. When $\alpha>0$, causative features are favoured, giving us robust classification at test time under such cases where the new data is suspected to have been intervened upon. We do this by trying to identify so called ``$V$-structures'' (section \ref{sec:IdentifyingCausesInObservationalData}) in the data. Code and data are available at \url{github.com/makerere-compute/causal-rlvq}.
 
 %The structure of the remainder of the paper is as follows; initially we explain the problem of identifying causes from observational data, then give a small background on the basic RLVQ scheme that we extend in the following section. We then follow on with a description of how the causal relevance scheme works and we conclude with some experiments on different datasets.
 
