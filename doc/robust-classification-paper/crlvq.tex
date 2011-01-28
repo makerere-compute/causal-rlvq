@@ -100,7 +100,7 @@ Techniques for recovering causal structure from observational data broadly fall 
 	\label{fig:vstructure}
 \end{figure}
 
-Figure \ref{fig:vstructure} shows some configurations of three variables $X,Y$ and $Z$: (a) \emph{Collider} ($X \ci Z$ but $X \dep Z\ |\ Y$), (b) \emph{Chain} ($X \ci Z\ |\ Y$), (c) \emph{Fork} ($X \ci Z\ |\ Y$), and (d) the fully connected configuration (can have any conditional independence properties). Note that the chain and fork are in the same conditional independence class, but the collider is uniquely specified by its conditional independence properties. The collider is therefore an important structure in causal discovery. In hypothesis tests, such as the prototypical Inductive Causation algorithm \cite[\S 2.5]{06}, colliders are identified by looking for any variables $X$ and $Z$ which are unconnected (dependent under every conditioning set) with each other, but both of which are connected with a third variable $Y$. When such a configuration is found, the edges are orientated as in Figure \ref{fig:vstructure}(a). This is the approach that we adopt here, using the RLVQ framework itself rather than hypothesis tests.
+Figure \ref{fig:vstructure} shows some configurations of three variables $X,Y$ and $Z$: (a) \emph{Collider} ($X \ci Z$ but $X \dep Z\ |\ Y$), (b) \emph{Chain} ($X \ci Z\ |\ Y$), and (c) \emph{Fork} ($X \ci Z\ |\ Y$). Note that the chain and fork are in the same conditional independence class, but the collider is uniquely specified by its conditional independence properties. The collider is therefore an important structure in causal discovery. In hypothesis tests, such as the prototypical Inductive Causation algorithm \cite[\S 2.5]{06}, colliders are identified by looking for any variables $X$ and $Z$ which are unconnected (dependent under every conditioning set) with each other, but both of which are connected with a third variable $Y$. When such a configuration is found, the edges are orientated as in Figure \ref{fig:vstructure}(a). This is the approach that we adopt here, using the RLVQ framework itself rather than hypothesis tests.
 
 \section{RLVQ}
 \label{sec:RLVQ}
@@ -121,17 +121,21 @@ d(\textbf{x},\textbf{w}^J) = \sum^N_{j=1} \lambda_j (x_j - w^J_j)^2 ,
 as the dissimilarity measure where $\lambda_j$ are the adaptive relevance factors. The special case $\lambda_j = 1/N$ for all $j = 1,\ldots N$ is analogous to the original LVQ1 formulation. Each update of the winning prototype $w_j$ is accompanied by a corresponding update in the relevance factor $\lambda_j(t)$ as follows;
 %
 \begin{equation}
-\lambda_j(t) = \lambda_j(t-1) - \eta_\lambda \phi \cdot (x_j - w^J_j)^2 
+\lambda_j(t) = \lambda_j(t-1) - \eta_\lambda \phi \cdot (x_j - w^J_j)^2  \quad \text{with} \quad
+\phi = \begin{cases}
++1& \text{if $y^\mu = c(\textbf{w}^J(t))$},\\
+-1& else 
+\end{cases}
 \end{equation}
 %
 where $\lambda_j(t)$ is restricted to non-negative values and obeys the normalization $\sum^N_{j=1} \lambda_j = 1$.
 
-The $\lambda$ update hence decreases the relevance factor $\lambda_j$ if the winning prototype $\textbf{w}^J$ does represent the correct class but the contribution $(\textbf{x}_j - \textbf{w}^J_j)^2$ to $d(\textbf{x},\textbf{w}^J)$ is relatively large. Conversely the weight of a feature with relatively small $(\textbf{x}_j - \textbf{w}^J_j)^2$ is increased in such a case. The learning rates $\eta_w$ and $\eta_\lambda$ control the magnitude of the prototype and relevance factor updates at each step.
+The $\lambda$ update hence decreases the relevance factor $\lambda_j$ if the winning prototype $\textbf{w}^J$ does represent the correct class but the contribution $(\textbf{x}_j - \textbf{w}^J_j)^2$ to $d(\textbf{x},\textbf{w}^J)$ is relatively large. Conversely the weight of a feature with relatively small $(\textbf{x}_j - \textbf{w}^J_j)^2$ is increased in such a case. The learning rate $\eta_\lambda$ controls the magnitude of the prototype and relevance factor updates at each step.
 
 \section{Causal RLVQ}
 \label{sec:CRLVQ}
 
-CRLVQ is our extention of the RLVQ scheme where updates favor features that are causally related to the target feature. Our assessment of causal relevance is based on identifying V-structures with respect to the target. RLVQ gives a profile that represents how strongly each single dimension of the data is predictive of the target. In CRLVQ instead of looking at a single dimension, we look for evidence that there are two dimensions $x_i$ and $x_k$ that are predictive of the target. To ascertain that $x_i$ and $x_k$ are in a V-structure with the target we also check that they are independent of each other.
+CRLVQ is our extension of the RLVQ scheme where updates favor features that are causally related to the target feature. Our assessment of causal relevance is based on identifying V-structures with respect to the target. RLVQ gives a profile that represents how strongly each single dimension of the data is predictive of the target. In CRLVQ instead of looking at a single dimension, we look for evidence that there are two dimensions $x_i$ and $x_k$ that are predictive of the target. To ascertain that $x_i$ and $x_k$ are in a V-structure with the target we also check that they are independent of each other.
 
 \begin{figure}
 \begin{tabular}{m{.5\textwidth}cm{.4\textwidth}}
@@ -144,7 +148,7 @@ CRLVQ is our extention of the RLVQ scheme where updates favor features that are 
 \caption{RLVQ and CRLVQ formulations. Panel (a) is an illustration of placement of variables across the predictive-causal space. Panel (b) shows how RLVQ is extended to CRLVQ}
 \end{figure}
 
-Figure 2(a) illustrates this salient distiction between RLVQ and CRLVQ. We conceive of features $(x_1, \ldots, x_P)$ as being characterisable along two dimensions: their predictiveness of the target variable, and their causal effect on the target variable. Standard relevance learning aims to give higher weight to a set of variables (1) which are highly predictive; causal structure learning aims to find causes (2) or effects of a target; our work here identifies variables which are predictive causes (3). Figure 2(b) shows the difference in which RLVQ considers each feature separately; CRLVQ takes features pairwise in order to identify V-structures with the target.
+Figure 2(a) illustrates this salient distinction between RLVQ and CRLVQ. We conceive of features $(x_1, \ldots, x_P)$ as being characterisable along two dimensions: their predictiveness of the target variable, and their causal effect on the target variable. Standard relevance learning aims to give higher weight to a set of variables (1) which are highly predictive; causal structure learning aims to find causes (2) or effects of a target; our work here identifies variables which are predictive causes (3). Figure 2(b) shows the difference in which RLVQ considers each feature separately; CRLVQ takes features pairwise in order to identify V-structures with the target.
  
 CRLVQ extends the RLVQ update by adding two extra evaluation criteria to equation 2. The three criteria in total are in a sense a distance-based formulation of the V-structure condition. For every example presented to the CRLVQ classification scheme, each component of $\lambda$ in CRLVQ is hence updated for every dimension $x_j$ for each introduction of a data example as follows
 %
@@ -174,7 +178,6 @@ Simulated causal networks were used to demonstrate the effect of the causal $\la
 \label{fig:simnetwork}
 \caption{CRLVQ relevance weights for simulated network data. Panel (a) shows the simulated network with 2 causes, 2 effects and 1 irrelevant feature. Panel (b) shows the relevance profile under RLVQ and under CRLVQ for different parameter settings.}
 \end{figure}
-
 
 For experiments on manipulated test sets we used a network simulated from a Bayes net and used for several causal competitions as a trial set for tuning causal algorithms. It is commonly called the Lucas dataset\cite{12,13} and tries to predict lung cancer based on different features. Three versions of the dataset were used: Lucas0, the natural network (unmanipulated) from which the training set was obtained, and manipulated datasets Lucas1 and Lucas2 (manipulated variables shown in Figure \ref{fig:lucasgraph}). All training was carried out on unmanipulated data. 
 \begin{figure}[t]
